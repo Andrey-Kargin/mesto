@@ -1,0 +1,19 @@
+.place__info_button {
+  border: none;
+  background: url(../../../../images/like.svg) center no-repeat;
+  background-size: 22px 19px;
+  object-fit: cover;
+  width: 22px;
+}
+
+.place__info_button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.place__info_button:active {
+  opacity: 1;
+  background: url(../../../../images/like_active.png) center no-repeat;
+  background-size: 22px 19px;
+  object-fit: cover;
+}

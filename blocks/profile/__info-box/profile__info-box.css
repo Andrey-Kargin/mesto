@@ -1,0 +1,5 @@
+.profile__info-box {
+  position: relative;
+  display: flex;
+  height: 39px;
+}
