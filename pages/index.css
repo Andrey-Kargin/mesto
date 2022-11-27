@@ -20,8 +20,8 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
-@import url(../blocks/profile/__info/_name/profile__info_name.css);
-@import url(../blocks/profile/__info/_caption/profile__info_caption.css);
+@import url(../blocks/profile/__caption/profile__caption.css);
+@import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 @import url(../blocks/profile/__edit-button/profile__info_edit-button.css);
 @import url(../blocks/profile/__info-box/profile__info-box.css);
@@ -31,8 +31,8 @@
 @import url(../blocks/place/place.css);
 @import url(../blocks/place/__image/place__image.css);
 @import url(../blocks/place/__info/palce__info.css);
-@import url(../blocks/place/__info/_name/place__info_name.css);
-@import url(../blocks/place/__info/_button/place__info_button.css);
+@import url(../blocks/place/__button/place__button.css);
+@import url(../blocks/place/__name/place__name.css);
 
 /*FOOTER*/
 @import url(../blocks/footer/footer.css);

@@ -1,8 +1,8 @@
 let popupBg = document.querySelector('.popup');
 let popupOpen = document.querySelector('.profile__edit-button');
 let popupClose = document.querySelector('.popup__close-btn');
-let profileName = document.querySelector('.profile__info_name');
-let profileCaption = document.querySelector('.profile__info_caption');
+let profileName = document.querySelector('.profile__name');
+let profileCaption = document.querySelector('.profile__caption');
 let inputUsername = document.getElementById('username');
 let inputCaption = document.getElementById('caption');
 
