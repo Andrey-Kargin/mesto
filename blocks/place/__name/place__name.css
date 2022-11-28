@@ -1,5 +1,4 @@
 .place__name {
-  max-width: 190px;
   text-overflow: ellipsis;
   overflow: hidden;
   font-weight: 900;
