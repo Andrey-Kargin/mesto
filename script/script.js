@@ -1,31 +1,32 @@
-let popupBg = document.querySelector('.popup');
-let popupOpen = document.querySelector('.profile__edit-button');
-let popupClose = document.querySelector('.popup__close-btn');
-let profileName = document.querySelector('.profile__name');
-let profileCaption = document.querySelector('.profile__caption');
-let inputUsername = document.getElementById('username');
-let inputCaption = document.getElementById('caption');
+const popupBg = document.querySelector('.popup');
+const popupOpen = document.querySelector('.profile__edit-button');
+const popupClose = document.querySelector('.popup__close-btn');
+const profileName = document.querySelector('.profile__name');
+const profileCaption = document.querySelector('.profile__caption');
+const inputUsername = document.getElementById('username');
+const inputCaption = document.getElementById('caption');
+const popupForm = document.querySelector('.popup__form');
 
-function OpenEdit() {
+function openEdit() {
     inputUsername.value = profileName.textContent;
     inputCaption.value = profileCaption.textContent;
     popupBg.classList.add('popup_opened');
 }
+//Открывает попап окно с изменением профиля и автозаполняет данные с главной страницы внутри нее
 
-function CloseEdit() {
+function closeEdit() {
     popupBg.classList.remove('popup_opened');
 }
-
-popupOpen.addEventListener('click', OpenEdit);
-popupClose.addEventListener('click', CloseEdit);
-
-let popupForm = document.querySelector('.popup__form');
+//Закрывает попап окно
 
 function handleFormSubmit (evt) {
     evt.preventDefault();
     profileName.textContent = inputUsername.value;
     profileCaption.textContent = inputCaption.value;
-    CloseEdit();
+    closeEdit();
 }
+//Этот код дает возможность изменять данные в имени и описании профиля с сохранением по нажатию кнопки "Сохранить" и далее закрытия окна изменения профиля
 
+popupOpen.addEventListener('click', openEdit);
+popupClose.addEventListener('click', closeEdit);
 popupForm.addEventListener("submit", handleFormSubmit); 
