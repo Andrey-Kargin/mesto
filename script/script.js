@@ -15,7 +15,7 @@ const placeContainer = document.querySelector('.places');
 const popupImage = document.querySelector('.popup__image');
 const popupOpenImg = document.querySelector('.popup__open-img');
 const closeImageBtn = document.querySelector('.popup__close-image');
-const imageDescription = document.querySelector('.popup__img_description');
+const imageDescription = document.querySelector('.popup__image_description');
 const cardTemplate = document.querySelector('#place__template').content;
 const initialCards = [
     {
@@ -135,8 +135,8 @@ elementInfo.reverse().forEach(addCard);
 //Добавление новой карточки
 function HandleAddSubmit (evt) {
   evt.preventDefault();
-  const cardName = document.querySelector('.input__add-name');
-  const cardLink = document.querySelector('.input__add-link');
+  const cardName = document.querySelector('.popup__input_add-name');
+  const cardLink = document.querySelector('.popup__input_add-link');
   addCard({name: cardName.value, link: cardLink.value});
   cardName.value = '';
   cardLink.value = '';

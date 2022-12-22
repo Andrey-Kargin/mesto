@@ -15,7 +15,7 @@
 @import url(../blocks/popup/__add-card/popup__add-card.css);
 @import url(../blocks/popup/__container-img/popup__container-img.css);
 @import url(../blocks/popup/__image/popup__image.css);
-@import url(../blocks/popup/__img/_description/popup__img_description.css);
+@import url(../blocks/popup/__image/_description/popup__image_description.css);
 
 /*HEADER*/
 @import url(../blocks/header/header.css);
