@@ -2,8 +2,8 @@ const popupEditProfile = document.querySelector('.popup__edit_profile');
 const popupAddCard = document.querySelector('.popup__add_card');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
-const popupCloseEdit = document.querySelector('.popup__close_edit');
-const popupCloseAdd = document.querySelector('.popup__close_add');
+const popupCloseEdit = document.querySelector('.popup__close-edit');
+const popupCloseAdd = document.querySelector('.popup__close-add');
 const popupAddButton = document.querySelector('.popup__add-button')
 const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
@@ -13,8 +13,8 @@ const popupFormEdit = document.querySelector('.popup__form_edit');
 const popupFormAdd = document.querySelector('.popup__form_add');
 const placeContainer = document.querySelector('.places');
 const popupImage = document.querySelector('.popup__image');
-const popupOpenImg = document.querySelector('.popup__open_img');
-const closeImageBtn = document.querySelector('.popup__close_image');
+const popupOpenImg = document.querySelector('.popup__open-img');
+const closeImageBtn = document.querySelector('.popup__close-image');
 const imageDescription = document.querySelector('.popup__img_description');
 const cardTemplate = document.querySelector('#place__template').content;
 const initialCards = [
@@ -135,8 +135,8 @@ elementInfo.reverse().forEach(addCard);
 //Добавление новой карточки
 function HandleAddSubmit (evt) {
   evt.preventDefault();
-  const cardName = document.querySelector('.input__add_name');
-  const cardLink = document.querySelector('.input__add_link');
+  const cardName = document.querySelector('.input__add-name');
+  const cardLink = document.querySelector('.input__add-link');
   addCard({name: cardName.value, link: cardLink.value});
   cardName.value = '';
   cardLink.value = '';
