@@ -1,5 +1,5 @@
-const popupEditProfile = document.querySelector('.popup__profile');
-const popupAddCard = document.querySelector('.popup__card');
+const popupEditProfile = document.querySelector('.edit-profile');
+const popupAddCard = document.querySelector('.add-card');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const popupCloseEdit = document.querySelector('.popup__close-edit');
@@ -13,7 +13,7 @@ const popupFormEdit = document.querySelector('.popup__form-edit');
 const popupFormAdd = document.querySelector('.popup__form-add');
 const placeContainer = document.querySelector('.places');
 const popupImage = document.querySelector('.popup__image');
-const popupOpenImg = document.querySelector('.popup__img');
+const popupOpenImg = document.querySelector('.img');
 const closeImageBtn = document.querySelector('.popup__close-image');
 const imageDescription = document.querySelector('.popup__description');
 const cardTemplate = document.querySelector('#place__template').content;
