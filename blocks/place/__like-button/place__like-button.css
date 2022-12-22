@@ -1,17 +1,14 @@
-.place__button {
+.place__like-button {
   border: none;
   background: url(../../../images/like.svg) center no-repeat;
   background-size: 22px 19px;
   object-fit: cover;
   width: 22px;
+  transition: opacity 0.5s ease;
 }
 
-.place__button:hover {
+.place__like-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }
 
-.place__button:active {
-  opacity: 1;
-  background: url(../../../images/like_active.svg) center no-repeat;
-}
