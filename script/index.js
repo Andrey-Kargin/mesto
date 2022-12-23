@@ -17,32 +17,8 @@ const popupOpenImg = document.querySelector('.img');
 const closeImageBtn = document.querySelector('.popup__close-image');
 const imageDescription = document.querySelector('.popup__description');
 const cardTemplate = document.querySelector('#place__template').content;
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
+const cardName = document.querySelector('.popup__input_add-name');
+const cardLink = document.querySelector('.popup__input_add-link');
 
 //Открывает попап окно
 function openPopup(el) {
@@ -91,28 +67,21 @@ popupCloseAdd.addEventListener('click', function () {
   closePopup(popupAddCard);
 });
 
-//Создание массива из исходника
-const elementInfo = initialCards.map(function(item) {
-    return{
-        name: item.name,
-        link: item.link,
-    };
-});
-
-//Функция добавления карточек
-const addCard = ({name, link}) => {
+//Функция создания исвcd возвращения готового элемента карточки
+const createCard = ({name, link}) => {
   const cardElement = cardTemplate.querySelector('.place').cloneNode(true);
-  
-  cardElement.querySelector('.place__name').textContent = name;
-  cardElement.querySelector('.place__image').src = link;
-  cardElement.querySelector('.place__image').alt = `${name}.`;
   const cardImage = cardElement.querySelector('.place__image');
+  const cardName = cardElement.querySelector('.place__name');
 
+  cardName.textContent = name;
+  cardImage.src = link;
+  cardImage.alt = `${name}.`;
+  
   //Функция открытия попап каринки
   cardImage.addEventListener('click', function() {
    popupImage.src = cardImage.src;
-   imageDescription.textContent =cardElement.querySelector('.place__name').textContent;
-   popupImage.alt = cardElement.querySelector('.place__image').alt;
+   imageDescription.textContent = cardName.textContent;
+   popupImage.alt = cardImage.alt;
    openPopup(popupOpenImg);
   })
 
@@ -125,18 +94,21 @@ const addCard = ({name, link}) => {
   cardElement.querySelector('.place__trash-button').addEventListener('click', function() {
     cardElement.remove();
   })
-  placeContainer.prepend(cardElement);
+  return cardElement;
+  //placeContainer.prepend(cardElement);
 };
 
+//Функция добавления карточки
+const addCard = ({name, link}) => {
+  placeContainer.prepend(createCard({name, link}));
+}
 
 //Добавление карточек на страницу из исходного массива
-elementInfo.reverse().forEach(addCard);
+initialCards.reverse().forEach(addCard);
 
 //Добавление новой карточки
-function HandleAddSubmit (evt) {
+function handleAddSubmit (evt) {
   evt.preventDefault();
-  const cardName = document.querySelector('.popup__input_add-name');
-  const cardLink = document.querySelector('.popup__input_add-link');
   addCard({name: cardName.value, link: cardLink.value});
   cardName.value = '';
   cardLink.value = '';
@@ -144,10 +116,9 @@ function HandleAddSubmit (evt) {
 }
 
 //Добавление новой карточки по нажатию "сохранить"
-popupFormAdd.addEventListener("submit", HandleAddSubmit);
+popupFormAdd.addEventListener("submit", handleAddSubmit);
 
 //Закрыть попап картинку
 closeImageBtn.addEventListener('click', function() {
   closePopup(popupOpenImg);
 })
-
