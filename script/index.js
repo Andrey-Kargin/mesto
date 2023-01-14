@@ -58,6 +58,14 @@ function handleFormSubmit (evt) {
 
 //------------Карточки-------------------
 
+//Функция открытия карточки
+const openPopupImage = (name, link) => {
+  popupImage.src = link;
+  imageDescription.textContent = name;
+  popupImage.alt = `${name}.`;
+  openPopup(popupOpenImg);
+}
+
 //Функция создания и возвращения готового элемента карточки
 const createCard = ({name, link}) => {
   const cardElement = cardTemplate.querySelector('.place').cloneNode(true);
