@@ -79,9 +79,10 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   } 
 }
 
-//Функция деакцтивации формы после нажатия на кнопку
-const resetButton = (buttonElement) => {
-  toggleButtonState (formAddCardList, buttonElement, config);
+//Функция деакцтивации конпки отправки формы
+const disableButton = (buttonElement) => {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.disabled = true;
 }
 
 //Функция очищения ошибок валидации формы

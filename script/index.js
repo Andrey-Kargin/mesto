@@ -132,8 +132,8 @@ popupFormEdit.addEventListener("submit", handleFormSubmit);
 //Функция открытия попапа добавления карточки по нажатию кнопки
 buttonAddProfile.addEventListener('click', function () {
   toggleButtonState(formAddCardList, popupButton, config);
-  resetButton (popupAddButton);
   popupFormAdd.reset();
+  disableButton(popupAddButton);
   removeValidation(formAddCardList, popupFormAdd);
   openPopup(popupAddCard);
 });
