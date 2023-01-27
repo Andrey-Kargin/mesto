@@ -16,13 +16,56 @@ const popupImage = document.querySelector('.popup__image');
 const popupOpenImg = document.querySelector('.img');
 const buttonClosePopupImage = document.querySelector('.popup__close-image');
 const imageDescription = document.querySelector('.popup__description');
-const cardTemplate = document.querySelector('#place__template').content;
+const cardTemplate = document.querySelector('#place__template');
 const cardName = document.querySelector('.popup__input_add-name');
 const cardLink = document.querySelector('.popup__input_add-link');
 const popup = document.querySelectorAll('.popup');
 const formEditProfileList = Array.from(popupFormEdit.querySelectorAll('.popup__input'));
 const formAddCardList = Array.from(popupFormAdd.querySelectorAll('.popup__input'));
 const popupButton = popupFormEdit.querySelector('.popup__button');
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_visible'
+};
+const validatorAdd = new FormValidator(popupFormAdd, config);
+const validatorEdit = new FormValidator(popupFormEdit, config);
+
+
+//Импортируем класс Карт
+import {Card} from "./Card.js";
+
+//Импортируем класс ФормВалидатор
+import { FormValidator } from "./FormValidator.js";
 
 //Открывает попап окно
 function openPopup(el) {
@@ -46,8 +89,6 @@ function closePopupEsc(evt) {
 
 //-------------Изменение профиля------------
 
-
-
 //Этот код дает возможность изменять данные в имени и описании профиля с сохранением по нажатию кнопки "Сохранить" и далее закрытия окна изменения профиля
 function handleFormSubmit (evt) {
     evt.preventDefault();
@@ -59,48 +100,23 @@ function handleFormSubmit (evt) {
 //------------Карточки-------------------
 
 //Функция открытия карточки
-const openPopupImage = (name, link) => {
+export const openPopupImage = (name, link) => {
   popupImage.src = link;
   imageDescription.textContent = name;
   popupImage.alt = `${name}.`;
   openPopup(popupOpenImg);
 }
 
-//Функция создания и возвращения готового элемента карточки
-const createCard = ({name, link}) => {
-  const cardElement = cardTemplate.querySelector('.place').cloneNode(true);
-  const cardImage = cardElement.querySelector('.place__image');
-  const cardName = cardElement.querySelector('.place__name');
-
-  cardName.textContent = name;
-  cardImage.src = link;
-  cardImage.alt = `${name}.`;
-  
-  //Функция открытия попап картинки
-  cardImage.addEventListener('click', () => openPopupImage(name, link));
-
-  //Поставить и убрать лайк
-  cardElement.querySelector('.place__like-button').addEventListener('click', function(event) {
-    event.target.classList.toggle('place__like-button_active');
-  })
-
- //Удаление карточки по нажатию на урну
-  cardElement.querySelector('.place__trash-button').addEventListener('click', function() {
-    cardElement.remove();
-  })
-  return cardElement;
-  //placeContainer.prepend(cardElement);
-};
-
-//Функция добавления карточки
-const addCard = ({name, link}) => {
-  placeContainer.prepend(createCard({name, link}));
+//Функция "Рендера" карточки
+function renderCard(name, link) {
+  const card = new Card({name, link}, cardTemplate)
+  placeContainer.prepend(card.generateCard());
 }
 
 //Добавление новой карточки
 function handleAddSubmit (evt) {
   evt.preventDefault();
-  addCard({name: cardName.value, link: cardLink.value});
+  renderCard(cardName.value, cardLink.value);
   closePopup(popupAddCard);
 }
 
@@ -114,10 +130,11 @@ buttonClosePopupImage.addEventListener('click', function() {
 
 //Функция открытия попапа изменения профиля по нажатию кнопки
 buttonEditProfile.addEventListener('click', function () {
+  const validator = new FormValidator(popupFormEdit, config)
   inputUsername.value = profileName.textContent;
   inputCaption.value = profileCaption.textContent;
-  toggleButtonState(formEditProfileList, popupButton, config);
-  removeValidation(formEditProfileList, popupFormEdit);
+  validator._toggleButtonState();
+  validator.removeValidation(formEditProfileList, popupFormEdit);
   openPopup(popupEditProfile);
 });
 
@@ -131,10 +148,11 @@ popupFormEdit.addEventListener("submit", handleFormSubmit);
 
 //Функция открытия попапа добавления карточки по нажатию кнопки
 buttonAddProfile.addEventListener('click', function () {
-  toggleButtonState(formAddCardList, popupButton, config);
+  const validator = new FormValidator(popupFormAdd, config)
+  validator._toggleButtonState();
   popupFormAdd.reset();
-  disableButton(popupAddButton);
-  removeValidation(formAddCardList, popupFormAdd);
+  validator.disableButton(popupAddButton);
+  validator.removeValidation(formAddCardList, popupFormAdd);
   openPopup(popupAddCard);
 });
 
@@ -153,4 +171,10 @@ popup.forEach((item) =>{
 });
 
 //Добавление карточек на страницу из исходного массива
-initialCards.reverse().forEach(addCard);
+initialCards.forEach((element) => {
+  renderCard(element.name, element.link);
+})
+
+//Запуск функции проверки ошибок валиации форм на странице
+validatorAdd.enableValidation();
+validatorEdit.enableValidation();
