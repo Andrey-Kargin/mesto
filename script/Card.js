@@ -1,4 +1,4 @@
-import { openPopupImage } from "./index.js";
+import { openPopupImage } from "./utils.js";
 export class Card {
   constructor(data, cardTemplate) {
       this._name = data.name;
@@ -12,6 +12,7 @@ export class Card {
 
   _handleDeleteBtn() {
     this._card.remove();
+    this._card = null;
   }
 
   _getTemplate() {

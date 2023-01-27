@@ -1,3 +1,5 @@
+//Импортируем функция открытия попапа картинок
+import {openPopupImage} from "./utils.js"
 export class FormValidator {
   constructor(form, config) {
     this._form = form;
@@ -12,7 +14,7 @@ export class FormValidator {
   }
 
   //Функция отключения кнопки при наличии ошибки валидации, и ее активирования при их отсутсвии
-  _toggleButtonState() {
+  toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this._config.inactiveButtonClass);
       this._buttonElement.disabled = true;
@@ -49,12 +51,12 @@ export class FormValidator {
 
   //Функция слушателя событий для input
   _setEventListeners() {
-    this._toggleButtonState();
+    this.toggleButtonState();
 
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState();
+        this.toggleButtonState();
       })
     })
   }
