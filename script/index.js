@@ -66,6 +66,8 @@ function handleAddSubmit (evt) {
   evt.preventDefault();
   renderCard(cardName.value, cardLink.value);
   closePopup(popupAddCard);
+  popupFormAdd.reset();
+  validatorAdd.removeValidation();
 }
 
 //Добавление новой карточки по нажатию "сохранить"
@@ -81,7 +83,7 @@ buttonEditProfile.addEventListener('click', function () {
   inputUsername.value = profileName.textContent;
   inputCaption.value = profileCaption.textContent;
   validatorEdit.toggleButtonState();
-  validatorEdit.removeValidation(formEditProfileList, popupFormEdit);
+  validatorEdit.removeValidation();
   openPopup(popupEditProfile);
 });
 
@@ -97,8 +99,7 @@ popupFormEdit.addEventListener("submit", handleFormSubmit);
 buttonAddProfile.addEventListener('click', function () {
   validatorAdd.toggleButtonState();
   popupFormAdd.reset();
-  validatorAdd.disableButton(popupAddButton);
-  validatorAdd.removeValidation(formAddCardList, popupFormAdd);
+  validatorAdd.removeValidation();
   openPopup(popupAddCard);
 });
 

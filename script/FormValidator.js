@@ -69,14 +69,8 @@ export class FormValidator {
     this._setEventListeners();
   }
 
-  //Функция деакцтивации конпки отправки формы
-  disableButton(buttonElement) {
-    buttonElement.classList.add(this._config.inactiveButtonClass);
-    buttonElement.disabled = true;
-  }
-
   //Функция очищения ошибок валидации формы
-  removeValidation(inputList, form) {
+  removeValidation() {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     })
