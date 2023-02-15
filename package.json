@@ -1,0 +1,38 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "--------\r Интерактивный одностраничный сайт с функцией изменения личной информации, возможностью добавления постов с фотографией и названием места,оценивания постов лайком, а так же их удаления.\r ### Функциональность и используемые технологии\r ---------\r При написании данного сайта были задейтвованы:\r * Верстка сайта и его дизайна по макету страницы в \"Фигме\"\r * Флекс-бокс верстка\r * Грид-бокс верстка\r * Позиционирование\r * Файловое структурирование проекта по правилам NESTED БЭМ\r * Стилизация на классах\r * Использование локально-подгруженного шрифта \"Inter\"\r * Отдельные медиазапросы для макетов шириной от 320px до 1280px\r * Использование JavaScript для открытия Pop-Up элемента, его закрытия и изменения формы по нажатию 'submit'\r * Использования Git branch и merge при работе с проектом\r * Использование массива в js и добавление его на страницу сайта\r * Использование классов\r * Разбитие JavaScript на модули\r * Использование импорта и экспорта классов среди JS файлов\r * Библиотека пакетов NPM\r * Подключение Webpack",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrey-Kargin/mesto.git"
+  },
+  "author": "Andrey Kargin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andrey-Kargin/mesto/issues"
+  },
+  "homepage": "https://github.com/Andrey-Kargin/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
+    "cssnano": "^5.1.14",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss-loader": "^7.0.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "core-js": "^3.28.0"
+  }
+}
