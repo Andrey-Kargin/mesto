@@ -22,7 +22,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 //Импортируем все константы
 import * as all from '../utils/constants.js';
 
-//Создание классовcd Desktop/dev
+//Создание классов
 const validatorAdd = new FormValidator(all.popupFormAdd, all.config);
 const validatorEdit = new FormValidator(all.popupFormEdit, all.config);
 const userInfo = new UserInfo({
@@ -31,12 +31,17 @@ const userInfo = new UserInfo({
 });
 const popupWithImage = new PopupWithImage(all.popupOpenImg);
 
+//Функция создания карточек
+function createCard(item) {
+  const card = new Card(item, all.cardTemplate, () => { popupWithImage.open(item.name, item.link) });
+  const cardElement = card.generateCard();
+  return cardElement
+}
+
 const cardList = new Section({
   data: all.initialCards,
   renderer: (item) => {
-    const card = new Card(item, all.cardTemplate, () => {popupWithImage.open(item.name, item.link)});
-    const cardElement =card.generateCard();
-    cardList.addItem(cardElement);  
+    cardList.addItem(createCard(item));  
   }
 }, all.placeContainer)
 
@@ -50,17 +55,13 @@ const profilePopup = new PopupWithForm(
 const cardsAdd = new PopupWithForm(
   all.popupAddCard,
   (item) => {
-    const card = new Card(item, all.cardTemplate, () => {popupWithImage.open(item.name, item.link)});
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
+    cardList.addItem(createCard(item));
   }
 );
 
 //Функция открытия попапа изменения профиля по нажатию кнопки
 all.buttonEditProfile.addEventListener('click', function () {
-  const {profileName, profileCaption} = userInfo.getUserInfo();
-  all.inputUsername.value = profileName;
-  all.inputCaption.value = profileCaption;
+  profilePopup.setInputValues(userInfo.getUserInfo())
   validatorEdit.toggleButtonState();
   validatorEdit.removeValidation();
   profilePopup.open();
@@ -69,7 +70,6 @@ all.buttonEditProfile.addEventListener('click', function () {
 //Функция открытия попапа добавления карточки по нажатию кнопки
 all.buttonAddProfile.addEventListener('click', () => {
   validatorAdd.toggleButtonState();
-  all.popupFormAdd.reset();
   validatorAdd.removeValidation();
   cardsAdd.open();
 });
@@ -78,6 +78,7 @@ all.buttonAddProfile.addEventListener('click', () => {
 cardsAdd.setEventListeners();
 profilePopup.setEventListeners();
 popupWithImage.setEventListeners();
+
 
 //Добавление карточек на страницу
 cardList.renderCards();
