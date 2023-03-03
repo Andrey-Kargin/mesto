@@ -11,7 +11,10 @@
   </header>
   <main class="content">  
     <section aria-label="Профиль" class="profile">
-      <img src="<%=require('./images/avatar.jpg')%>" alt="Аватарка" class="profile__avatar">
+      <div class="profile__avatar-wrapper">
+        <img src="#" class="profile__avatar">
+        <button alt="Аватарка" class="profile__avatar-edit"></button>
+      </div>
       <div class="profile__info">
         <div class="profile__info-box">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -27,14 +30,25 @@
   <footer class="footer">
     <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
   </footer>
+  <div class="popup edit-avatar">
+    <div class="popup__container">
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form name="submit-form-profile" class="popup__form popup__form-avatar" novalidate>
+        <input class="popup__input" name="avatar" type="url" id="avatar" placeholder="Ссылка на картинку" required>
+        <span class="popup__input-error avatar-error"></span>
+        <button class="popup__button" type="submit">Сохранить</button>
+      </form>
+      <button class="popup__close-btn popup__close-avatar" type="button"></button>
+    </div>
+  </div>
   <div class="popup edit-profile">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="submit-form-profile" class="popup__form popup__form-edit" novalidate>
-        <input class="popup__input" name="profileName" type="text" id="username" placeholder="Имя" required minlength="2" maxlength="40">
-        <span class="popup__input-error username-error"></span>
-        <input class="popup__input" name="profileCaption" type="text" id="caption" placeholder="О себе" required minlength="2" maxlength="200">
-        <span class="popup__input-error caption-error"></span>
+        <input class="popup__input" name="name" type="text" id="name" placeholder="Имя" required minlength="2" maxlength="40">
+        <span class="popup__input-error name-error"></span>
+        <input class="popup__input" name="about" type="text" id="about" placeholder="О себе" required minlength="2" maxlength="200">
+        <span class="popup__input-error about-error"></span>
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-btn popup__close-edit" type="button"></button>
@@ -60,13 +74,23 @@
       <button class="popup__close-btn popup__close-image" type="button"></button>
     </div>
   </div>
+  <div class="popup cofirm-popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button class="popup__button" type="submit">Да</button>
+      <button class="popup__close-btn popup__close-avatar" type="button"></button>
+    </div>
+  </div>
   <template id="place__template">
     <article class="place">
       <button class="place__trash-button" type="button"></button>
       <img alt="image" class="place__image">
       <div class="place__info">
         <h2 class="place__name"></h2>
-        <button class="place__like-button" type="button"></button>
+        <div class="place__like-info">
+          <button class="place__like-button" type="button"></button>
+          <p class="place__like-counter">0</p>
+        </div>
       </div>
     </article>
   </template>
