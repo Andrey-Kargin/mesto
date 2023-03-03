@@ -51,9 +51,9 @@ const popupWithConfirm = new PopupWithConfirm(all.popupDeleteConfirm,card => {
   api.deleteCard(card._id)
     .then(() => {
       card.deleteCard();
-      popupWithDelete.close();
+      popupWithConfirm.close();
     })
-    .catch(err => console.log(`Ошибка: ${err}`));
+    .catch(err => console.log(`Ошибка: ${err}`))
 });
 const userInfo = new UserInfo({
   name : all.profileName, 
@@ -95,8 +95,9 @@ const cardList = new Section({
        () => { popupWithImage.open(item.name, item.link) },
        handleLikeBtn,
        handleConfirmDelete,
-       userInfo.getUserId()
+       userInfo.getUserId(),
       )
+      
     const cardElement = card.generateCard();
     return cardElement
   }
@@ -104,12 +105,15 @@ const cardList = new Section({
 
 const profilePopup = new PopupWithForm(
   all.popupEditProfile, (data) => {
-  api.setUserInfo(data)
-    .then((res) => {
-      userInfo.setUserInfo(res);
+    api.setUserInfo(data)
+      .then((res) => {
+        userInfo.setUserInfo(res);
       profilePopup.close();
+      })
+    .catch(err => console.log(`Ошибка: ${err}`))
+    .finally(() => {
+      profilePopup.stopLoading();
     })
-  .catch(err => console.log(`Ошибка: ${err}`))
   }
 );
 
@@ -121,6 +125,9 @@ const cardsAdd = new PopupWithForm(
         cardsAdd.close();
       })
     .catch(err => console.log(`Ошибка: ${err}`))
+    .finally(() => {
+      cardsAdd.stopLoading();
+    })
   }
 );
 
@@ -128,15 +135,19 @@ const avatarPopup = new PopupWithForm( all.popupEditAvatar, data => {
   api.updateAvatar(data)
     .then((data) => {
       userInfo.setUserInfo(data)
+      console.log(data)
       avatarPopup.close()
     })
   .catch((err) => console.log(`Ошибка: ${err}`))
-  // .finally( () => avatarPopup.renderLoading(false))
+  .finally(() => {
+    avatarPopup.stopLoading();
+  })
 })
 
 
 all.profileAvatarEdit.addEventListener('click', () => {
   validatorAvatar.removeValidation();
+  validatorEdit.toggleButtonState();
   avatarPopup.open();
 })
 
@@ -162,7 +173,7 @@ avatarPopup.setEventListeners();
 cardsAdd.setEventListeners();
 profilePopup.setEventListeners();
 popupWithImage.setEventListeners();
-
+popupWithConfirm.setEventListeners();
 
 
 

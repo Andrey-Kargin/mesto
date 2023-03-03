@@ -5,6 +5,7 @@ export default class PopupWithConfirm extends Popup {
     super(popupSelector)
     this._popupButton = this._popup.querySelector('.popup__button')
     this._handleFormSubmit = handleFormSubmit;
+    
   }
   
   setEventListeners() {
@@ -14,6 +15,7 @@ export default class PopupWithConfirm extends Popup {
     this._handleFormSubmit(this._card)
     })
   }
+
   
   setDeleteCard(card) {
     this._card = card;
