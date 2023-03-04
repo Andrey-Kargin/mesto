@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, cardTemplate, handleCardClick, handleLikeBtn, handleConfirmDelete, userId) {
+  constructor(data, cardTemplate, handleCardClick, handleLikeBtn, handleConfirmDelete, handleDeleteCard, userId) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -7,6 +7,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleLikeBtn = handleLikeBtn;
     this._handleConfirmDelete = handleConfirmDelete;
+    this._handleDeleteCard = handleDeleteCard;
 
     this._cardTemplate = cardTemplate;
     
@@ -92,11 +93,4 @@ export default class Card {
     this.likeCard.textContent = this._likes.length;
     this.likeBtn.classList.toggle("place__like-button_active");
   }
-
-  handleRemoveCard() {
-    this._card.remove();
-    this._card = null;
-  }
-
-
 }

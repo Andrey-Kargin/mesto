@@ -23,7 +23,6 @@ export default class UserInfo {
       this._avatar.src = this.avatar
       this._avatar.alt = this.name
     }
-    console.log(this._id)
   }
 
   getUserId() {

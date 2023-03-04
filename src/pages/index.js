@@ -50,8 +50,7 @@ const popupWithImage = new PopupWithImage(all.popupOpenImg);
 const popupWithConfirm = new PopupWithConfirm(all.popupDeleteConfirm,card => {
   api.deleteCard(card._id)
     .then(() => {
-      card.deleteCard();
-      popupWithConfirm.close();
+      handleDeleteCard(card)
     })
     .catch(err => console.log(`Ошибка: ${err}`))
 });
@@ -86,22 +85,31 @@ function handleConfirmDelete(card) {
   popupWithConfirm.open();
 }
 
-const cardList = new Section({
-  items: [],
-  renderer: (item) => {
-    const card = new Card( 
-      item, 
-      all.cardTemplate,
-       () => { popupWithImage.open(item.name, item.link) },
-       handleLikeBtn,
-       handleConfirmDelete,
-       userInfo.getUserId(),
-      )
-      
-    const cardElement = card.generateCard();
-    return cardElement
+function handleDeleteCard(cardElement) {
+  cardElement.deleteCard()
+  popupWithConfirm.close()
+}
+
+
+function createCard(item) {
+const card = new Card( 
+  item, 
+  all.cardTemplate,
+   () => { popupWithImage.open(item.name, item.link) },
+   handleLikeBtn,
+   handleConfirmDelete,
+   handleDeleteCard,
+   userInfo.getUserId(),
+  )
+  return card.generateCard();
+}
+
+const cardList = new Section(
+   (item) => {
+    const card = createCard(item)
+    cardList.addItem(card)
   }
-}, all.placeContainer)
+, all.placeContainer)
 
 const profilePopup = new PopupWithForm(
   all.popupEditProfile, (data) => {
@@ -121,7 +129,7 @@ const cardsAdd = new PopupWithForm(
   all.popupAddCard, data => {
     api.addNewCard(data)
       .then((res) => {
-        cardList.addItem(res)
+        cardList.addItem(createCard(res))
         cardsAdd.close();
       })
     .catch(err => console.log(`Ошибка: ${err}`))
@@ -146,8 +154,8 @@ const avatarPopup = new PopupWithForm( all.popupEditAvatar, data => {
 
 
 all.profileAvatarEdit.addEventListener('click', () => {
+  validatorAvatar.toggleButtonState();
   validatorAvatar.removeValidation();
-  validatorEdit.toggleButtonState();
   avatarPopup.open();
 })
 
